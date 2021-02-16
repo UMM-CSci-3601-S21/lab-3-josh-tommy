@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './users/user-list.component';
 import { UserProfileComponent } from './users/user-profile.component';
-import { TodosListComponent } from './todos/todos-list/todos-list.component';
-import { TodosProfileComponent } from './todos/todos-profile/todos-profile.component';
+import { TodosListComponent } from './todos/todos-list.component';
+import { TodosProfileComponent } from './todos/todos-profile.component';
 
 
 const routes: Routes = [
