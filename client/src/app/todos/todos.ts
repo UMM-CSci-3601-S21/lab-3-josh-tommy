@@ -6,4 +6,3 @@ export interface Todos {
   category: string;
 }
 
-export type UserRole = 'admin' | 'editor' | 'viewer';
