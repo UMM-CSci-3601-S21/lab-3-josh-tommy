@@ -20,13 +20,13 @@ export class TodosListPage {
   }
 
   /**
-   * Clicks the "view profile" button for the given Todos card.
+   * Clicks the "view tasks" button for the given Todos card.
    * Requires being in the "card" view.
    *
    * @param card The Todos card
    */
-  clickViewProfile(card: Cypress.Chainable<JQuery<HTMLElement>>) {
-    return card.find<HTMLButtonElement>('[data-test=viewProfileButton]').click();
+  clickViewTasks(card: Cypress.Chainable<JQuery<HTMLElement>>) {
+    return card.find<HTMLButtonElement>('[data-test=viewTasksButton]').click();
   }
 
   /**

@@ -31,13 +31,13 @@ describe('Todos list', () => {
     page.getTodosListItems().should('not.exist');
   });
 
-  it('Should click view profile on a todos and go to the right URL', () => {
+  it('Should click view tasks on a todos and go to the right URL', () => {
     page.getTodosCards().first().then((card) => {
       const firstTodosOwner = card.find('.todos-card-owner').text();
       const firstTodosCategory = card.find('.todos-card-category').text();
 
-      // When the view profile button on the first todos card is clicked, the URL should have a valid mongo ID
-      page.clickViewProfile(page.getTodosCards().first());
+      // When the view tasks button on the first todos card is clicked, the URL should have a valid mongo ID
+      page.clickViewTasks(page.getTodosCards().first());
 
       // The URL should contain '/todos/' (note the ending slash) and '/todos/' should be followed by a mongo ID
       cy.url()
