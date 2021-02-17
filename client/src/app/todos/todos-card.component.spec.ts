@@ -1,25 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TodosCardComponent } from './todos-card.component';
-
-describe('TodosCardComponent', () => {
-  let component: TodosCardComponent;
-  let fixture: ComponentFixture<TodosCardComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ TodosCardComponent ]
-    })
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TodosCardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+describe('TodosCardComponent is trivial, so we do not actually test it', () => {
+  /*
+   * The `TodosCardComponent` has no actually logic in
+   * it, so there's really nothing to test here.
+   */
 });

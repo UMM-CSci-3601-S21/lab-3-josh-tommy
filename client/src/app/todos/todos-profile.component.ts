@@ -9,10 +9,10 @@ import { TodosService } from './todos.service';
   styleUrls: ['./todos-profile.component.scss']
 })
 export class TodosProfileComponent implements OnInit {
-  todo: Todos;
+  todos: Todos;
   id: string;
 
-  constructor(private route: ActivatedRoute, private todoService: TodosService) { }
+  constructor(private route: ActivatedRoute, private todosService: TodosService) { }
 
   ngOnInit(): void {
     // We subscribe to the parameter map here so we'll be notified whenever
@@ -20,7 +20,7 @@ export class TodosProfileComponent implements OnInit {
     // to display the newly requested todo.
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
-      this.todoService.getTodoById(this.id).subscribe(user => this.todo = user);
+      this.todosService.getTodoById(this.id).subscribe(todos => this.todos = todos);
     });
   }
 

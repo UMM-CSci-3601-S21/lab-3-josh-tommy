@@ -14,9 +14,7 @@ export class TodosService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getTodoById(id: string): Observable<Todos> {
-    return this.httpClient.get<Todos>(this.todosUrl + '/' + id);
-  }
+
 
   getTodos(filters?: { owner?: string }): Observable<Todos[]> {
     let httpParams: HttpParams = new HttpParams();
@@ -28,6 +26,10 @@ export class TodosService {
     return this.httpClient.get<Todos[]>(this.todosUrl, {
       params: httpParams,
     });
+  }
+
+  getTodoById(id: string): Observable<Todos> {
+    return this.httpClient.get<Todos>(this.todosUrl + '/' + id);
   }
 
   filterTodos(todos: Todos[], filters: { owner?: string }): Todos[] {
