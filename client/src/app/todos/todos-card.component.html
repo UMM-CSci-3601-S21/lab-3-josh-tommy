@@ -1,7 +1,7 @@
 <mat-card class="todos-card" *ngIf="this.todos">
   <mat-card-header>
     <mat-card-title class="todos-card-owner">{{ this.todos.owner }}</mat-card-title>
-    <mat-card-subtitle class="todos-card-status">{{ this.todos.category }}</mat-card-subtitle>
+    <mat-card-subtitle class="todos-card-category">{{ this.todos.category }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content *ngIf="!this.simple">
     <p>Status: <span class="todos-card-status">{{ todos.status }}</span></p>

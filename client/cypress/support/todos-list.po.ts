@@ -1,36 +1,36 @@
-export class UserListPage {
+export class TodosListPage {
   navigateTo() {
-    return cy.visit('/users');
+    return cy.visit('/todos');
   }
 
   getUrl() {
     return cy.url();
   }
 
-  getUserTitle() {
-    return cy.get('.user-list-title');
+  getTodosTitle() {
+    return cy.get('.todos-list-title');
   }
 
-  getUserCards() {
-    return cy.get('.user-cards-container app-user-card');
+  getTodosCards() {
+    return cy.get('.todos-cards-container app-todos-card');
   }
 
-  getUserListItems() {
-    return cy.get('.user-nav-list .user-list-item');
+  getTodosListItems() {
+    return cy.get('.todos-nav-list .todos-list-item');
   }
 
   /**
-   * Clicks the "view profile" button for the given user card.
+   * Clicks the "view profile" button for the given Todos card.
    * Requires being in the "card" view.
    *
-   * @param card The user card
+   * @param card The Todos card
    */
   clickViewProfile(card: Cypress.Chainable<JQuery<HTMLElement>>) {
     return card.find<HTMLButtonElement>('[data-test=viewProfileButton]').click();
   }
 
   /**
-   * Change the view of users.
+   * Change the view of Todos.
    *
    * @param viewType Which view type to change to: "card" or "list".
    */
@@ -44,6 +44,6 @@ export class UserListPage {
    * @param value The role *value* to select, this is what's found in the mat-option "value" attribute.
    */
   selectRole(value: string) {
-    return cy.get('[data-test=userRoleSelect]').click().get(`mat-option[value="${value}"]`).click();
+    return cy.get('[data-test=TodosRoleSelect]').click().get(`mat-option[value="${value}"]`).click();
   }
 }
