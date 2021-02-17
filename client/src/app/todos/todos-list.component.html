@@ -34,7 +34,7 @@
         <mat-card-content>
           <mat-nav-list class="todos-nav-list">
             <h3 mat-subheader>Todos</h3>
-            <a mat-list-item *ngFor="let todos of this.filteredTodos" [routerLink]="['/Todos', todos._id]" class="todos-list-item">
+            <a mat-list-item *ngFor="let todos of this.filteredTodos" [routerLink]="['/todos', todos._id]" class="todos-list-item">
               <h3 matLine class="todos-list-owner"> {{todos.owner}} </h3>
               <p matLine class="todos-list-category"> {{todos.category}} </p>
             </a>

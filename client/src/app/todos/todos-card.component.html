@@ -8,6 +8,6 @@
     <p>Body: <span class="todos-card-body">{{ todos.body }}</span></p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button data-test="viewProfileButton" *ngIf="this.simple" [routerLink]="['/todoss', this.todos._id]">View Profile</button>
+    <button mat-button data-test="viewProfileButton" *ngIf="this.simple" [routerLink]="['/todos', this.todos._id]">View Profile</button>
   </mat-card-actions>
 </mat-card>
