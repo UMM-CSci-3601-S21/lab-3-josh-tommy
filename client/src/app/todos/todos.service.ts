@@ -16,11 +16,14 @@ export class TodosService {
 
 
 
-  getTodos(filters?: { owner?: string }): Observable<Todos[]> {
+  getTodos(filters?: { body?: string; owner?: string }): Observable<Todos[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
       if (filters.owner) {
         httpParams = httpParams.set('owner', filters.owner);
+      }
+      if (filters.body) {
+        httpParams = httpParams.set('body', filters.body);
       }
     }
     return this.httpClient.get<Todos[]>(this.todosUrl, {
@@ -32,7 +35,7 @@ export class TodosService {
     return this.httpClient.get<Todos>(this.todosUrl + '/' + id);
   }
 
-  filterTodos(todos: Todos[], filters: { owner?: string }): Todos[] {
+  filterTodos(todos: Todos[], filters: { body?: string; owner?: string }): Todos[] {
 
     let filteredTodos = todos;
 
@@ -41,6 +44,12 @@ export class TodosService {
       filters.owner = filters.owner.toLowerCase();
 
       filteredTodos = filteredTodos.filter(todo => todo.owner.toLowerCase().indexOf(filters.owner) !== -1);
+    }
+    // Filter by body
+    if (filters.body) {
+      filters.body = filters.body.toLowerCase();
+
+      filteredTodos = filteredTodos.filter(todo => todo.body.toLowerCase().indexOf(filters.body) !== -1);
     }
 
     return filteredTodos;

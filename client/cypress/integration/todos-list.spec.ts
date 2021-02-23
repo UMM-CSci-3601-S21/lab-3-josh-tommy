@@ -12,6 +12,47 @@ describe('Todos list', () => {
     page.getTodosTitle().should('have.text', 'Todos');
   });
 
+  it('Should type something in the owner filter and check that it returned correct elements', () => {
+    // Filter for todos 'Fry'
+    cy.get('#todos-owner-input').type('Fry');
+
+    // All of the todos cards should have the owner we are filtering by
+    page.getTodosCards().each(e => {
+      cy.wrap(e).find('.todos-card-owner').should('have.text', 'Fry');
+    });
+
+    // (We check this two ways to show multiple ways to check this)
+    page.getTodosCards().find('.todos-card-owner').each($el =>
+      expect($el.text()).to.equal('Fry')
+    );
+  });
+
+  it('Should type something in the body filter and check that it returned correct elements', () => {
+    // Filter for body 'in sunt'
+    cy.get('#todos-body-input').type('In sunt ex non tempor cillum commodo amet incididunt' +
+    ' anim qui commodo quis. Cillum non labore ex sint esse.');
+
+    // All of the todos cards should have the body we are filtering by
+    page.getTodosCards().find('.todos-card-body').each($card => {
+      cy.wrap($card).should('have.text', 'In sunt ex non tempor cillum commodo amet incididunt ' +
+      'anim qui commodo quis. Cillum non labore ex sint esse.');
+    });
+  });
+
+  it('Should type something partial in the body filter and check that it returned correct elements', () => {
+    // Filter for bodies that contain 'ti'
+    cy.get('#todos-body-input').type('In sunt');
+
+    // Go through each of the cards that are being shown and get the bodies
+    page.getTodosCards().find('.todos-card-body')
+      // We should see these bodies
+      .should('contain.text', 'Cillum non labore ex sint esse.')
+      .should('contain.text', 'Ipsum irure anim excepteur')
+      // We shouldn't see these bodies
+      .should('not.contain.text', 'im a horse')
+      .should('not.contain.text', 'grandma loves you');
+  });
+
 
   it('Should change the view', () => {
     // Choose the view type "List"

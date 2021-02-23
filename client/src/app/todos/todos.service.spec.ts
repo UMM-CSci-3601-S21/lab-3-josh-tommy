@@ -77,6 +77,45 @@ describe('TodosService', () => {
       // actually being performed.
       req.flush(testTodos);
     });
+    describe('Calling getTodos() with parameters correctly forms the HTTP request', () => {
+
+      it('correctly calls api/todos with filter parameter \'pam\'', () => {
+        todosService.getTodos({ owner: 'pam' }).subscribe(
+          todos => expect(todos).toBe(testTodos)
+        );
+
+        // Specify that (exactly) one request will be made to the specified URL with the owner parameter.
+        const req = httpTestingController.expectOne(
+          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('owner')
+        );
+
+        // Check that the request made to that URL was a GET request.
+        expect(req.request.method).toEqual('GET');
+
+        // Check that the owner parameter was 'pam'
+        expect(req.request.params.get('owner')).toEqual('pam');
+
+        req.flush(testTodos);
+      });
+
+      it('correctly calls api/todos with filter parameter \'pull\'', () => {
+        todosService.getTodos({ body: 'pull' }).subscribe(
+          todos => expect(todos).toBe(testTodos)
+        );
+
+        // Specify that (exactly) one request will be made to the specified URL with the body parameter.
+        const req = httpTestingController.expectOne(
+          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('body')
+        );
+
+        // Check that the request made to that URL was a GET request.
+        expect(req.request.method).toEqual('GET');
+
+        // Check that the body parameter was 'pull'
+        expect(req.request.params.get('body')).toEqual('pull');
+
+        req.flush(testTodos);
+      });
   });
 
   describe('getTodosByID()', () => {
@@ -125,5 +164,17 @@ describe('TodosService', () => {
         expect(todos.owner.indexOf(todosName)).toBeGreaterThanOrEqual(0);
       });
     });
+
+    it('filters by body', () => {
+      const todosBody = 'happy';
+      const filteredTodos = todosService.filterTodos(testTodos, { body: todosBody });
+      // There should be just one todos that has UMM as their body.
+      expect(filteredTodos.length).toBe(1);
+      // Every returned todo's body should contain 'UMM'.
+      filteredTodos.forEach(todos => {
+        expect(todos.body.indexOf(todosBody)).toBeGreaterThanOrEqual(0);
+      });
+    });
   });
+ });
 });

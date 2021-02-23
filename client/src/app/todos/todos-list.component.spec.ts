@@ -92,7 +92,7 @@ describe('TodosListComponent', () => {
  * This test is a little odd, but illustrates how we can use "stubbing"
  * to create mock objects (a service in this case) that be used for
  * testing. Here we set up the mock TodosService (todosServiceStub) so that
- * _always_ fails (throws an exception) when you request a set of todoss.
+ * _always_ fails (throws an exception) when you request a set of todos.
  *
  * So this doesn't really test anything meaningful in the context of our
  * code (I certainly wouldn't copy it), but it does illustrate some nice
