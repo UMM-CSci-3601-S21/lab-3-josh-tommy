@@ -5,6 +5,17 @@
       <mat-card-title class="todos-list-title">Todos</mat-card-title>
       <mat-card-content fxLayout="column" >
 
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+          <!-- Examples of filtering in Angular -->
+
+          <mat-form-field class="input-field">
+            <mat-label>Owner</mat-label>
+            <input matInput id="todos-owner-input" placeholder="Filter by owner"
+            [(ngModel)]="todosOwner" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+        </div>
+
         <br>
         <div fxLayout="row wrap" fxLayoutGap="10px">
           <label>View type: </label>

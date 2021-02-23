@@ -13,17 +13,17 @@ describe('Todos list', () => {
   });
 
   it('Should type something in the owner filter and check that it returned correct elements', () => {
-    // Filter for todos 'Lynn Ferguson'
-    cy.get('#todos-owner-input').type('Lynn Ferguson');
+    // Filter for todos 'Fry'
+    cy.get('#todos-owner-input').type('Fry');
 
     // All of the todos cards should have the owner we are filtering by
     page.getTodosCards().each(e => {
-      cy.wrap(e).find('.todos-card-owner').should('have.text', 'Lynn Ferguson');
+      cy.wrap(e).find('.todos-card-owner').should('have.text', 'Fry');
     });
 
     // (We check this two ways to show multiple ways to check this)
     page.getTodosCards().find('.todos-card-owner').each($el =>
-      expect($el.text()).to.equal('Lynn Ferguson')
+      expect($el.text()).to.equal('Fry')
     );
   });
 
