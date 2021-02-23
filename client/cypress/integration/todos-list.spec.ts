@@ -29,17 +29,18 @@ describe('Todos list', () => {
 
   it('Should type something in the body filter and check that it returned correct elements', () => {
     // Filter for body 'in sunt'
-    cy.get('#todos-body-input').type('In sunt');
+    cy.get('#todos-body-input').type('In sunt ex non tempor cillum commodo amet incididunt anim qui commodo quis. Cillum non labore ex sint esse.');
 
     // All of the todos cards should have the body we are filtering by
     page.getTodosCards().find('.todos-card-body').each($card => {
-      cy.wrap($card).should('have.text', 'In sunt');
+      cy.wrap($card).should('have.text', 'In sunt ex non tempor cillum commodo amet incididunt ' +
+      'anim qui commodo quis. Cillum non labore ex sint esse.');
     });
   });
 
   it('Should type something partial in the body filter and check that it returned correct elements', () => {
     // Filter for bodies that contain 'ti'
-    cy.get('#todos-body-input').type('to');
+    cy.get('#todos-body-input').type('In sunt');
 
     // Go through each of the cards that are being shown and get the bodies
     page.getTodosCards().find('.todos-card-body')

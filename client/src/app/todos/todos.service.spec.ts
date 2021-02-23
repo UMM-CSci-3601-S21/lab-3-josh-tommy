@@ -103,9 +103,9 @@ describe('TodosService', () => {
           todos => expect(todos).toBe(testTodos)
         );
 
-        // Specify that (exactly) one request will be made to the specified URL with the owner parameter.
+        // Specify that (exactly) one request will be made to the specified URL with the body parameter.
         const req = httpTestingController.expectOne(
-          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('owner')
+          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('body')
         );
 
         // Check that the request made to that URL was a GET request.
@@ -166,7 +166,7 @@ describe('TodosService', () => {
     });
 
     it('filters by body', () => {
-      const todosBody = 'happyss';
+      const todosBody = 'happy';
       const filteredTodos = todosService.filterTodos(testTodos, { body: todosBody });
       // There should be just one todos that has UMM as their body.
       expect(filteredTodos.length).toBe(1);
