@@ -37,6 +37,13 @@ describe('App', () => {
       cy.url().should('match', /.*\/users$/);
     });
 
+    it('Should have a working navigation to "Todos"', () => {
+      page.getSidenavButton().click();
+      page.getSidenav();
+      page.getNavLink('Todos').click();
+      cy.url().should('match', /.*\/todos$/);
+    });
+
 
     it('Should have a working navigation to "Home"', () => {
       page.getSidenavButton().click();
