@@ -12,6 +12,21 @@ describe('Todos list', () => {
     page.getTodosTitle().should('have.text', 'Todos');
   });
 
+  it('Should type something in the owner filter and check that it returned correct elements', () => {
+    // Filter for todos 'Lynn Ferguson'
+    cy.get('#todos-owner-input').type('Lynn Ferguson');
+
+    // All of the todos cards should have the owner we are filtering by
+    page.getTodosCards().each(e => {
+      cy.wrap(e).find('.todos-card-owner').should('have.text', 'Lynn Ferguson');
+    });
+
+    // (We check this two ways to show multiple ways to check this)
+    page.getTodosCards().find('.todos-card-owner').each($el =>
+      expect($el.text()).to.equal('Lynn Ferguson')
+    );
+  });
+
 
   it('Should change the view', () => {
     // Choose the view type "List"

@@ -77,6 +77,26 @@ describe('TodosService', () => {
       // actually being performed.
       req.flush(testTodos);
     });
+    describe('Calling getTodos() with parameters correctly forms the HTTP request', () => {
+
+      it('correctly calls api/todos with filter parameter \'pam\'', () => {
+        todosService.getTodos({ owner: 'pam' }).subscribe(
+          todos => expect(todos).toBe(testTodos)
+        );
+
+        // Specify that (exactly) one request will be made to the specified URL with the owner parameter.
+        const req = httpTestingController.expectOne(
+          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('owner')
+        );
+
+        // Check that the request made to that URL was a GET request.
+        expect(req.request.method).toEqual('GET');
+
+        // Check that the owner parameter was 'pam'
+        expect(req.request.params.get('owner')).toEqual('pam');
+
+        req.flush(testTodos);
+      });
   });
 
   describe('getTodosByID()', () => {
@@ -126,4 +146,5 @@ describe('TodosService', () => {
       });
     });
   });
+ });
 });
