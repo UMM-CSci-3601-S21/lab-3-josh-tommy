@@ -29,7 +29,8 @@ describe('Todos list', () => {
 
   it('Should type something in the body filter and check that it returned correct elements', () => {
     // Filter for body 'in sunt'
-    cy.get('#todos-body-input').type('In sunt ex non tempor cillum commodo amet incididunt anim qui commodo quis. Cillum non labore ex sint esse.');
+    cy.get('#todos-body-input').type('In sunt ex non tempor cillum commodo amet incididunt' +
+    ' anim qui commodo quis. Cillum non labore ex sint esse.');
 
     // All of the todos cards should have the body we are filtering by
     page.getTodosCards().find('.todos-card-body').each($card => {
