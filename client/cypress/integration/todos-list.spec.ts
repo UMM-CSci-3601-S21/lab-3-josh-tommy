@@ -27,6 +27,30 @@ describe('Todos list', () => {
     );
   });
 
+  it('Should type something in the body filter and check that it returned correct elements', () => {
+    // Filter for body 'in sunt'
+    cy.get('#todos-body-input').type('In sunt');
+
+    // All of the todos cards should have the body we are filtering by
+    page.getTodosCards().find('.todos-card-body').each($card => {
+      cy.wrap($card).should('have.text', 'In sunt');
+    });
+  });
+
+  it('Should type something partial in the body filter and check that it returned correct elements', () => {
+    // Filter for bodies that contain 'ti'
+    cy.get('#todos-body-input').type('to');
+
+    // Go through each of the cards that are being shown and get the bodies
+    page.getTodosCards().find('.todos-card-body')
+      // We should see these bodies
+      .should('contain.text', 'Cillum non labore ex sint esse.')
+      .should('contain.text', 'Ipsum irure anim excepteur')
+      // We shouldn't see these bodies
+      .should('not.contain.text', 'im a horse')
+      .should('not.contain.text', 'grandma loves you');
+  });
+
 
   it('Should change the view', () => {
     // Choose the view type "List"
