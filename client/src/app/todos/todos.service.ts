@@ -22,6 +22,9 @@ export class TodosService {
       if (filters.owner) {
         httpParams = httpParams.set('owner', filters.owner);
       }
+      if (filters.body) {
+        httpParams = httpParams.set('body', filters.body);
+      }
     }
     return this.httpClient.get<Todos[]>(this.todosUrl, {
       params: httpParams,
@@ -41,6 +44,12 @@ export class TodosService {
       filters.owner = filters.owner.toLowerCase();
 
       filteredTodos = filteredTodos.filter(todo => todo.owner.toLowerCase().indexOf(filters.owner) !== -1);
+    }
+    // Filter by body
+    if (filters.body) {
+      filters.body = filters.body.toLowerCase();
+
+      filteredTodos = filteredTodos.filter(todo => todo.body.toLowerCase().indexOf(filters.body) !== -1);
     }
 
     return filteredTodos;

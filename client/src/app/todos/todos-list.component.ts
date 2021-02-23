@@ -16,6 +16,7 @@ export class TodosListComponent implements OnInit {
   public filteredTodos: Todos[];
 
   public todosOwner: string;
+  public todosBody: string;
   public viewType: 'card' | 'list' = 'card';
 
   // Inject the TodoService into this component.
@@ -29,7 +30,8 @@ export class TodosListComponent implements OnInit {
 
   getTodosFromServer() {
     this.todosService.getTodos({
-      owner: this.todosOwner
+      owner: this.todosOwner,
+      body: this.todosBody
     }).subscribe(returnedTodos => {
       this.serverFilteredTodos = returnedTodos;
       this.updateFilter();
@@ -55,7 +57,7 @@ export class TodosListComponent implements OnInit {
   }
   public updateFilter() {
     this.filteredTodos = this.todosService.filterTodos(
-      this.serverFilteredTodos, { owner: this.todosOwner });
+      this.serverFilteredTodos, { owner: this.todosOwner, body: this.todosBody });
   }
 
   /**
