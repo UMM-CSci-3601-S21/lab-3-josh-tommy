@@ -97,6 +97,25 @@ describe('TodosService', () => {
 
         req.flush(testTodos);
       });
+
+      it('correctly calls api/todos with filter parameter \'pull\'', () => {
+        todosService.getTodos({ body: 'pull' }).subscribe(
+          todos => expect(todos).toBe(testTodos)
+        );
+
+        // Specify that (exactly) one request will be made to the specified URL with the owner parameter.
+        const req = httpTestingController.expectOne(
+          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('owner')
+        );
+
+        // Check that the request made to that URL was a GET request.
+        expect(req.request.method).toEqual('GET');
+
+        // Check that the body parameter was 'pull'
+        expect(req.request.params.get('body')).toEqual('pull');
+
+        req.flush(testTodos);
+      });
   });
 
   describe('getTodosByID()', () => {
@@ -143,6 +162,17 @@ describe('TodosService', () => {
       // Every returned todos owner should contain an 'i'.
       filteredTodos.forEach(todos => {
         expect(todos.owner.indexOf(todosName)).toBeGreaterThanOrEqual(0);
+      });
+    });
+
+    it('filters by body', () => {
+      const todosBody = 'happyss';
+      const filteredTodos = todosService.filterTodos(testTodos, { body: todosBody });
+      // There should be just one todos that has UMM as their body.
+      expect(filteredTodos.length).toBe(1);
+      // Every returned todo's body should contain 'UMM'.
+      filteredTodos.forEach(todos => {
+        expect(todos.body.indexOf(todosBody)).toBeGreaterThanOrEqual(0);
       });
     });
   });
