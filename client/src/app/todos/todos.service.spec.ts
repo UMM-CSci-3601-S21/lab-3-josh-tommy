@@ -175,6 +175,26 @@ describe('TodosService', () => {
         req.flush(testTodos);
       });
 
+      it('correctly calls api/todos with order parameter \'orderBy\'', () => {
+
+        todosService.getTodos({ orderBy: 'owner' }).subscribe(
+          todos => expect(todos).toBe(testTodos)
+        );
+
+        // Specify that (exactly) one request will be made to the specified URL with the role parameter.
+        const req = httpTestingController.expectOne(
+          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('orderBy')
+        );
+
+        // Check that the request made to that URL was a GET request.
+        expect(req.request.method).toEqual('GET');
+
+        // Check that the role parameter was 'admin'
+        expect(req.request.params.get('orderBy')).toEqual('owner');
+
+        req.flush(testTodos);
+      });
+
   });
 
   describe('getTodosByID()', () => {

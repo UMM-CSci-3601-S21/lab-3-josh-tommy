@@ -73,6 +73,16 @@ describe('Todos list', () => {
     });
   });
 
+  it('Should select an order and make sure elements are returned', () => {
+    // Thing to order by
+    page.selectStatus('owner');
+
+    // All of the todos cards should have the status we are filtering by
+    page.getTodosCards().find('.todos-card-owner').each($card => {
+      cy.wrap($card).should('contain.text', 'Barry');
+    });
+  });
+
   it('Should type something in the limit box and check that it returned correct amount of elements', () => {
     // Filter for todos of limit '2'
     cy.get('#todos-limit-input').type('2');
