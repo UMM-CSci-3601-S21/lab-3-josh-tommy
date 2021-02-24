@@ -38,7 +38,7 @@ export class MockTodosService extends TodosService {
   }
 
   getTodos(filters: { orderBy?: string; limit?: number;
-    status?: string; category?: string; body?: string; owner?: string }): Observable<Todos[]> {
+    status?: string; category?: string; body?: string; owner?: string; }): Observable<Todos[]> {
     // Our goal here isn't to test (and thus rewrite) the service, so we'll
     // keep it simple and just return the test users regardless of what
     // filters are passed in.

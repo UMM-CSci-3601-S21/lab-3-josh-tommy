@@ -42,6 +42,18 @@
           </mat-form-field>
 
           <mat-form-field class="input-field">
+            <mat-label>Order</mat-label>
+            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todosOrderBy" data-test="todosOrderSelect">
+              <mat-option>--</mat-option>
+              <mat-option value="owner">Owner</mat-option>
+              <mat-option value="category">Category</mat-option>
+              <mat-option value="body">Body</mat-option>
+              <mat-option value="status">Status</mat-option>
+            </mat-select>
+            <mat-hint>Filtered on server</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
             <mat-label>Limit</mat-label>
             <input matInput id="todos-limit-input" type="number" placeholder="Limit"
             min="0" max="200" [(ngModel)]="todosLimit" (input)="getTodosFromServer()">
