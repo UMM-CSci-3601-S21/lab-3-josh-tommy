@@ -73,6 +73,19 @@ describe('Todos list', () => {
     });
   });
 
+  it('Should type something in the age filter and check that it returned correct elements', () => {
+    // Filter for todos of limit '2'
+    cy.get('#todos-age-input').type('2');
+
+    // Go through each of the cards that are being shown and get the owners
+    page.getTodosCards().find('.todos-card-owner')
+      // We should see these todos whose age is 2
+      .should('contain.text', 'chris')
+      .should('contain.text', 'pam')
+      // We shouldn't see these todos
+      .should('not.contain.text', 'jamie');
+  });
+
   it('Should change the view', () => {
     // Choose the view type "List"
     page.changeView('list');

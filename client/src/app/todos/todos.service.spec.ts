@@ -155,6 +155,26 @@ describe('TodosService', () => {
         req.flush(testTodos);
       });
 
+      it('correctly calls api/todos with filter parameter \'limit\'', () => {
+
+        todosService.getTodos({ limit: 2 }).subscribe(
+          todos => expect(todos).toBe(testTodos)
+        );
+
+        // Specify that (exactly) one request will be made to the specified URL with the role parameter.
+        const req = httpTestingController.expectOne(
+          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('limit')
+        );
+
+        // Check that the request made to that URL was a GET request.
+        expect(req.request.method).toEqual('GET');
+
+        // Check that the role parameter was '2'
+        expect(req.request.params.get('limit')).toEqual('2');
+
+        req.flush(testTodos);
+      });
+
   });
 
   describe('getTodosByID()', () => {
