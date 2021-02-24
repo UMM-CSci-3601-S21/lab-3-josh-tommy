@@ -54,12 +54,12 @@ describe('Todos list', () => {
   });
 
   it('Should type something in the category filter and check that it returned correct elements', () => {
-    // Filter for category 'workout'
-    cy.get('#todos-category-input').type('workout');
+    // Filter for category 'homework'
+    cy.get('#todos-category-input').type('homework');
 
     // All of the todos cards should have the category we are filtering by
     page.getTodosCards().find('.todos-card-category').each($card => {
-      cy.wrap($card).should('have.text', 'workout');
+      cy.wrap($card).should('have.text', 'homework');
     });
   });
 

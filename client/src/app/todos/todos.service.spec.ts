@@ -124,7 +124,7 @@ describe('TodosService', () => {
 
         // Specify that (exactly) one request will be made to the specified URL with the category parameter.
         const req = httpTestingController.expectOne(
-          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('podcast')
+          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('category')
         );
 
         // Check that the request made to that URL was a GET request.
