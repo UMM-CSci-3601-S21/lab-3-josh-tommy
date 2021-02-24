@@ -116,6 +116,26 @@ describe('TodosService', () => {
 
         req.flush(testTodos);
       });
+
+      it('correctly calls api/todos with filter parameter \'category\'', () => {
+        todosService.getTodos({ category: 'podcast' }).subscribe(
+          todos => expect(todos).toBe(testTodos)
+        );
+
+        // Specify that (exactly) one request will be made to the specified URL with the category parameter.
+        const req = httpTestingController.expectOne(
+          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('podcast')
+        );
+
+        // Check that the request made to that URL was a GET request.
+        expect(req.request.method).toEqual('GET');
+
+        // Check that the category parameter was 'podcast'
+        expect(req.request.params.get('category')).toEqual('podcast');
+
+        req.flush(testTodos);
+      });
+
   });
 
   describe('getTodosByID()', () => {
@@ -168,11 +188,22 @@ describe('TodosService', () => {
     it('filters by body', () => {
       const todosBody = 'happy';
       const filteredTodos = todosService.filterTodos(testTodos, { body: todosBody });
-      // There should be just one todos that has UMM as their body.
+      // There should be just one todos that has happy as their body.
       expect(filteredTodos.length).toBe(1);
-      // Every returned todo's body should contain 'UMM'.
+      // Every returned todo's body should contain 'happy'.
       filteredTodos.forEach(todos => {
         expect(todos.body.indexOf(todosBody)).toBeGreaterThanOrEqual(0);
+      });
+    });
+
+    it('filters by category', () => {
+      const todosCategory = 'workout';
+      const filteredTodos = todosService.filterTodos(testTodos, { category: todosCategory });
+      // There should be just one todos that has workout as their category.
+      expect(filteredTodos.length).toBe(1);
+      // Every returned todo's category should contain 'workout'.
+      filteredTodos.forEach(todos => {
+        expect(todos.category.indexOf(todosCategory)).toBeGreaterThanOrEqual(0);
       });
     });
   });
