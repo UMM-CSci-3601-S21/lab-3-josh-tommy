@@ -16,7 +16,7 @@ export class TodosService {
 
 
 
-  getTodos(filters?: { status?: string; category?: string; body?: string; owner?: string }): Observable<Todos[]> {
+  getTodos(filters?: { limit?: number; status?: string; category?: string; body?: string; owner?: string }): Observable<Todos[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
       if (filters.owner) {
@@ -30,6 +30,9 @@ export class TodosService {
       }
       if (filters.status) {
         httpParams = httpParams.set('status', filters.status);
+      }
+      if (filters.limit) {
+        httpParams = httpParams.set('limit', filters.limit.toString());
       }
     }
     return this.httpClient.get<Todos[]>(this.todosUrl, {

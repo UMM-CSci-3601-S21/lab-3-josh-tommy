@@ -19,6 +19,7 @@ export class TodosListComponent implements OnInit {
   public todosBody: string;
   public todosCategory: string;
   public todosStatus: string;
+  public todosLimit: number;
   public viewType: 'card' | 'list' = 'card';
 
   // Inject the TodoService into this component.
@@ -35,7 +36,8 @@ export class TodosListComponent implements OnInit {
       owner: this.todosOwner,
       body: this.todosBody,
       category: this.todosCategory,
-      status: this.todosStatus
+      status: this.todosStatus,
+      limit: this.todosLimit,
     }).subscribe(returnedTodos => {
       this.serverFilteredTodos = returnedTodos;
       this.updateFilter();
