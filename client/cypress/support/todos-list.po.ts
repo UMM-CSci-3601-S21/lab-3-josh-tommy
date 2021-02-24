@@ -39,11 +39,11 @@ export class TodosListPage {
   }
 
   /**
-   * Selects a role to filter in the "Role" selector.
+   * Selects a role to filter in the "Status" selector.
    *
    * @param value The role *value* to select, this is what's found in the mat-option "value" attribute.
    */
-  selectRole(value: string) {
-    return cy.get('[data-test=TodosRoleSelect]').click().get(`mat-option[value="${value}"]`).click();
+  selectStatus(value: string) {
+    return cy.get('[data-test=todosStatusSelect]').click().get(`mat-option[value="${value}"]`).click();
   }
 }
