@@ -46,4 +46,8 @@ export class TodosListPage {
   selectStatus(value: string) {
     return cy.get('[data-test=todosStatusSelect]').click().get(`mat-option[value="${value}"]`).click();
   }
+
+  selectOrder(value: string) {
+    return cy.get('[data-test=todosOrderSelect]').click().get(`mat-option[value="${value}"]`).click();
+  }
 }
