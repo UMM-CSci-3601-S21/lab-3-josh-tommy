@@ -73,6 +73,28 @@ describe('Todos list', () => {
     });
   });
 
+  it('Should select an order and make sure elements are returned', () => {
+    // Thing to order by
+    page.selectOrder('owner');
+
+    // All of the todos cards should have the status we are filtering by
+    page.getTodosCards().find('.todos-card-owner')
+    .should('contain.text', 'Barry');
+    });
+
+  it('Should type something in the limit box and check that it returned correct amount of elements', () => {
+    // Filter for todos of limit '2'
+    cy.get('#todos-limit-input').type('2');
+
+    // Go through each of the cards that are being shown and get the owners
+    page.getTodosCards().find('.todos-card-owner')
+      // We should see these todos whose age is 2
+      .should('contain.text', 'Blanche')
+      .should('contain.text', 'Fry')
+      // We shouldn't see these todos
+      .should('not.contain.text', 'jamie');
+  });
+
   it('Should change the view', () => {
     // Choose the view type "List"
     page.changeView('list');

@@ -16,20 +16,17 @@ export class TodosService {
 
 
 
-  getTodos(filters?: { status?: string; category?: string; body?: string; owner?: string }): Observable<Todos[]> {
+  getTodos(filters?: { orderBy?: string; limit?: number; status? }): Observable<Todos[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
-      if (filters.owner) {
-        httpParams = httpParams.set('owner', filters.owner);
-      }
-      if (filters.body) {
-        httpParams = httpParams.set('body', filters.body);
-      }
-      if (filters.category) {
-        httpParams = httpParams.set('category', filters.category);
-      }
       if (filters.status) {
         httpParams = httpParams.set('status', filters.status);
+      }
+      if (filters.limit) {
+        httpParams = httpParams.set('limit', filters.limit.toString());
+      }
+      if (filters.orderBy) {
+        httpParams = httpParams.set('orderBy', filters.orderBy);
       }
     }
     return this.httpClient.get<Todos[]>(this.todosUrl, {

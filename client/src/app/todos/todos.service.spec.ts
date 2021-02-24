@@ -79,63 +79,6 @@ describe('TodosService', () => {
     });
     describe('Calling getTodos() with parameters correctly forms the HTTP request', () => {
 
-      it('correctly calls api/todos with filter parameter \'pam\'', () => {
-        todosService.getTodos({ owner: 'pam' }).subscribe(
-          todos => expect(todos).toBe(testTodos)
-        );
-
-        // Specify that (exactly) one request will be made to the specified URL with the owner parameter.
-        const req = httpTestingController.expectOne(
-          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('owner')
-        );
-
-        // Check that the request made to that URL was a GET request.
-        expect(req.request.method).toEqual('GET');
-
-        // Check that the owner parameter was 'pam'
-        expect(req.request.params.get('owner')).toEqual('pam');
-
-        req.flush(testTodos);
-      });
-
-      it('correctly calls api/todos with filter parameter \'pull\'', () => {
-        todosService.getTodos({ body: 'pull' }).subscribe(
-          todos => expect(todos).toBe(testTodos)
-        );
-
-        // Specify that (exactly) one request will be made to the specified URL with the body parameter.
-        const req = httpTestingController.expectOne(
-          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('body')
-        );
-
-        // Check that the request made to that URL was a GET request.
-        expect(req.request.method).toEqual('GET');
-
-        // Check that the body parameter was 'pull'
-        expect(req.request.params.get('body')).toEqual('pull');
-
-        req.flush(testTodos);
-      });
-
-      it('correctly calls api/todos with filter parameter \'category\'', () => {
-        todosService.getTodos({ category: 'podcast' }).subscribe(
-          todos => expect(todos).toBe(testTodos)
-        );
-
-        // Specify that (exactly) one request will be made to the specified URL with the category parameter.
-        const req = httpTestingController.expectOne(
-          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('category')
-        );
-
-        // Check that the request made to that URL was a GET request.
-        expect(req.request.method).toEqual('GET');
-
-        // Check that the category parameter was 'podcast'
-        expect(req.request.params.get('category')).toEqual('podcast');
-
-        req.flush(testTodos);
-      });
-
       it('correctly calls api/todos with filter parameter \'complete\'', () => {
         todosService.getTodos({ status: 'complete' }).subscribe(
           todos => expect(todos).toBe(testTodos)
@@ -151,6 +94,46 @@ describe('TodosService', () => {
 
         // Check that the status parameter was 'complete'
         expect(req.request.params.get('status')).toEqual('complete');
+
+        req.flush(testTodos);
+      });
+
+      it('correctly calls api/todos with filter parameter \'limit\'', () => {
+
+        todosService.getTodos({ limit: 2 }).subscribe(
+          todos => expect(todos).toBe(testTodos)
+        );
+
+        // Specify that (exactly) one request will be made to the specified URL with the role parameter.
+        const req = httpTestingController.expectOne(
+          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('limit')
+        );
+
+        // Check that the request made to that URL was a GET request.
+        expect(req.request.method).toEqual('GET');
+
+        // Check that the role parameter was '2'
+        expect(req.request.params.get('limit')).toEqual('2');
+
+        req.flush(testTodos);
+      });
+
+      it('correctly calls api/todos with order parameter \'orderBy\'', () => {
+
+        todosService.getTodos({ orderBy: 'owner' }).subscribe(
+          todos => expect(todos).toBe(testTodos)
+        );
+
+        // Specify that (exactly) one request will be made to the specified URL with the role parameter.
+        const req = httpTestingController.expectOne(
+          (request) => request.url.startsWith(todosService.todosUrl) && request.params.has('orderBy')
+        );
+
+        // Check that the request made to that URL was a GET request.
+        expect(req.request.method).toEqual('GET');
+
+        // Check that the role parameter was 'admin'
+        expect(req.request.params.get('orderBy')).toEqual('owner');
 
         req.flush(testTodos);
       });
