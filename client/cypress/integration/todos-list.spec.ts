@@ -53,6 +53,25 @@ describe('Todos list', () => {
       .should('not.contain.text', 'grandma loves you');
   });
 
+  it('Should type something in the category filter and check that it returned correct elements', () => {
+    // Filter for category 'homework'
+    cy.get('#todos-category-input').type('homework');
+
+    // All of the todos cards should have the category we are filtering by
+    page.getTodosCards().find('.todos-card-category').each($card => {
+      cy.wrap($card).should('have.text', 'homework');
+    });
+  });
+
+  it('Should type something in the status filter and check that it returned correct elements', () => {
+    // Filter for status 'complete'
+    page.selectStatus('complete');
+
+    // All of the todos cards should have the status we are filtering by
+    page.getTodosCards().find('.todos-card-status').each($card => {
+      cy.wrap($card).should('have.text', 'true');
+    });
+  });
 
   it('Should change the view', () => {
     // Choose the view type "List"
@@ -75,6 +94,8 @@ describe('Todos list', () => {
   it('Should click view profile on a todos and go to the right URL', () => {
     page.getTodosCards().first().then((card) => {
       const firstTodosOwner = card.find('.todos-card-owner').text();
+      const firstTodosStatus = card.find('.todos-card-status').text();
+      const firstTodosBody = card.find('.todos-card-body').text();
       const firstTodosCategory = card.find('.todos-card-category').text();
 
       // When the view profile button on the first todos card is clicked, the URL should have a valid mongo ID
@@ -87,6 +108,8 @@ describe('Todos list', () => {
 
       // On this profile page we were sent to, the owner and category should be correct
       cy.get('.todos-card-owner').first().should('have.text', firstTodosOwner);
+      cy.get('.todos-card-status').first().should('have.text', firstTodosStatus);
+      cy.get('.todos-card-body').first().should('have.text', firstTodosBody);
       cy.get('.todos-card-category').first().should('have.text', firstTodosCategory);
     });
    });

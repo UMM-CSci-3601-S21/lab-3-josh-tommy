@@ -16,7 +16,7 @@ export class TodosService {
 
 
 
-  getTodos(filters?: { body?: string; owner?: string }): Observable<Todos[]> {
+  getTodos(filters?: { status?: string; category?: string; body?: string; owner?: string }): Observable<Todos[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
       if (filters.owner) {
@@ -24,6 +24,12 @@ export class TodosService {
       }
       if (filters.body) {
         httpParams = httpParams.set('body', filters.body);
+      }
+      if (filters.category) {
+        httpParams = httpParams.set('category', filters.category);
+      }
+      if (filters.status) {
+        httpParams = httpParams.set('status', filters.status);
       }
     }
     return this.httpClient.get<Todos[]>(this.todosUrl, {
@@ -35,7 +41,7 @@ export class TodosService {
     return this.httpClient.get<Todos>(this.todosUrl + '/' + id);
   }
 
-  filterTodos(todos: Todos[], filters: { body?: string; owner?: string }): Todos[] {
+  filterTodos(todos: Todos[], filters: { category?: string; body?: string; owner?: string }): Todos[] {
 
     let filteredTodos = todos;
 
@@ -50,6 +56,12 @@ export class TodosService {
       filters.body = filters.body.toLowerCase();
 
       filteredTodos = filteredTodos.filter(todo => todo.body.toLowerCase().indexOf(filters.body) !== -1);
+    }
+    // Filter by category
+    if (filters.category) {
+      filters.category = filters.category.toLowerCase();
+
+      filteredTodos = filteredTodos.filter(todo => todo.category.toLowerCase().indexOf(filters.category) !== -1);
     }
 
     return filteredTodos;
