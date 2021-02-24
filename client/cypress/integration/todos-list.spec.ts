@@ -53,6 +53,15 @@ describe('Todos list', () => {
       .should('not.contain.text', 'grandma loves you');
   });
 
+  it('Should type something in the category filter and check that it returned correct elements', () => {
+    // Filter for category 'workout'
+    cy.get('#todos-category-input').type('workout');
+
+    // All of the todos cards should have the category we are filtering by
+    page.getTodosCards().find('.todos-card-category').each($card => {
+      cy.wrap($card).should('have.text', 'workout');
+    });
+  });
 
   it('Should change the view', () => {
     // Choose the view type "List"
